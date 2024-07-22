@@ -14,6 +14,10 @@ class User(db.Model):
 
     reviews = db.relationship("Review", back_populates = 'user')
 
+    def to_dict(self):
+        return {col.name: getattr(self, col.name) for col in self.__table__.columns}
+
+
 class Game(db.Model):
     __tablename__='games'
 
@@ -23,6 +27,10 @@ class Game(db.Model):
     genre = db.Column(db.String)
 
     reviews = db.relationship("Review", back_populates = 'game')
+
+    def to_dict(self):
+        return {col.name: getattr(self, col.name) for col in self.__table__.columns}
+
 
 class Review(db.Model):
     __tablename__='reviews'
