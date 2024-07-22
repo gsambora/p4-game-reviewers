@@ -38,7 +38,7 @@ function AllReviews(){
     return(
         <>
         <h1>All Reviews:</h1>
-        {reviews.length === 0 ? (<p>No reviews available.</p>) :(
+        {reviews.length === 0 ? (<p>Loading...</p>) :(
              reviews.map((review) => {
                 //console.log(review)
                 return <Review key={review.id} username={review.user.username} pfp={review.user.pfp_image_url} title={review.game.title} recommend={review.recommend} text={review.rev_text}/>})
