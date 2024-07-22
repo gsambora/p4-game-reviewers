@@ -56,3 +56,5 @@ if __name__ == '__main__':
 
         db.session.add_all([r1,r2,r3,r4,r5,r6,r7,r8])
         db.session.commit()
+
+        print("Complete")
