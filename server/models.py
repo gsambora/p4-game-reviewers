@@ -12,7 +12,7 @@ class User(db.Model):
     pfp_image_url = db.Column(db.String)
     bio = db.Column(db.String)
 
-    reviews = db.relationship("Review", back_populates = 'users')
+    reviews = db.relationship("Review", back_populates = 'user')
 
 class Game(db.Model):
     __tablename__='games'
@@ -22,7 +22,7 @@ class Game(db.Model):
     cover_art_url = db.Column(db.String)
     genre = db.Column(db.String)
 
-    reviews = db.relationship("Review", back_populates = 'games')
+    reviews = db.relationship("Review", back_populates = 'game')
 
 class Review(db.Model):
     __tablename__='reviews'
