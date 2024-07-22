@@ -26,7 +26,7 @@ if __name__ == '__main__':
         print("Creating users")
 
         u1 = User(username="Becca", pfp_image_url=fake.url(), bio=fake.paragraph(nb_sentences=1))
-        u2 = User(username="Mochi", pfp_image_url=fake.url(), bio=fake.paragraph(nb_sentences=1))
+        u2 = User(username="Mochi", pfp_image_url='https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/IC_Blue_Melody_Flipper_CHA_male_EX1_CACIB.jpg/640px-IC_Blue_Melody_Flipper_CHA_male_EX1_CACIB.jpg', bio=fake.paragraph(nb_sentences=1))
         u3 = User(username="Chris", pfp_image_url=fake.url(), bio=fake.paragraph(nb_sentences=1))
         u4 = User(username="Neo", pfp_image_url=fake.url(), bio=fake.paragraph(nb_sentences=1))
         u5 = User(username="Tofu", pfp_image_url=fake.url(), bio=fake.paragraph(nb_sentences=1))

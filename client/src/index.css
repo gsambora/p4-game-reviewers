@@ -5,13 +5,25 @@
   --text: hsla(0, 0%, 100%, 0.88);
 }
 
-.review-box{
-  padding: 10px;
-  border: solid 2 px
+.review-box {
+  padding: 2rem 1rem;
+  margin: 2rem 0;
+  border: solid 2px;
+  background-color: powderblue;
 }
 
-.review-pfp{
-  padding: 5 px;
-  width: 2rem
+.review-box h2{
+  position: relative;
+  left: 1rem
 }
 
+.review-box img{
+  height: 3rem; 
+  float: left; 
+  width: 3rem; }
+
+.review-box button{
+  float: right;
+  height:2rem;
+  background-color: pink
+}
