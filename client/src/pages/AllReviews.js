@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Review from "../components/Review";
 
 function AllReviews(){
     const [reviews, setReviews] = useState([]);
