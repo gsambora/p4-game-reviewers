@@ -36,9 +36,25 @@ class Games(Resource):
 
         return games, 200
 
+class UserByID(Resource):
+    def get(self, id):
+        user = User.query.filter(User.id == id).first()
+        user_json = user.to_dict()
+
+        return user_json, 200
+    
+class GameByID(Resource):
+    def get(self, id):
+        game = Game.query.filter(Game.id == id).first()
+        game_json = game.to_dict()
+
+        return game_json, 200
+
 api.add_resource(Reviews, '/reviews', endpoint='reviews')
 api.add_resource(Users, '/users', endpoint='users')
 api.add_resource(Games, '/games', endpoint='games')
+api.add_resource(UserByID, '/users/<int:id>', endpoint="user_by_id")
+api.add_resource(GameByID, '/games/<int:id>', endpoint="game_by_id")
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
