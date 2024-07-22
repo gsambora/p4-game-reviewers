@@ -21,8 +21,7 @@ function AllReviews(){
         {reviews.length === 0 ? (<p>No reviews available.</p>) :(
              reviews.map((review) => {
                 console.log(review)
-                console.log(review.user_id)
-            return <Review username={review.user.username} pfp={review.user.pfp_image_url} title={review.game.title} recommend={review.recommend} text={review.rev_text}/>})
+            return <Review username={review.username} pfp={review.pfp} title={review.title} recommend={review.recommend} text={review.rev_text}/>})
         )}
         </>
     )

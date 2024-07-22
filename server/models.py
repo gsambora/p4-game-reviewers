@@ -34,10 +34,6 @@ class Review(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
 
-    username = db.Column(db.String, db.ForeignKey('users.username'))
-    pfp = db.Column(db.String, db.ForeignKey('users.pfp_image_url'))
-    title = db.Column(db.String, db.ForeignKey('games.title'))
-
     user = db.relationship('User', back_populates='reviews')
     game = db.relationship('Game', back_populates='reviews')
 
