@@ -58,3 +58,5 @@ if __name__ == '__main__':
         db.session.commit()
 
         print("Complete")
+        reviews = [review.to_dict() for review in Review.query.all()]
+        print("All reviews: ", reviews)

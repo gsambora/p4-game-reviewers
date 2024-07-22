@@ -37,4 +37,6 @@ class Review(db.Model):
     user = db.relationship('User', back_populates='reviews')
     game = db.relationship('Game', back_populates='reviews')
 
+    def to_dict(self):
+        return {col.name: getattr(self, col.name) for col in self.__table__.columns}
 
