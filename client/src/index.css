@@ -5,3 +5,13 @@
   --text: hsla(0, 0%, 100%, 0.88);
 }
 
+.review-box{
+  padding: 10px;
+  border: solid 2 px
+}
+
+.review-pfp{
+  padding: 5 px;
+  width: 2rem
+}
+
