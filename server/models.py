@@ -30,8 +30,11 @@ class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     recommend = db.Column(db.Boolean, nullable = False)
     rev_text = db.Column(db.String)
-    
+
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
+
+    user = db.relationship('User', back_populates='reviews')
+    game = db.relationship('Game', back_populates='reviews')
 
 
