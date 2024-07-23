@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import EditReviewForm from "./EditReviewForm";
 
 function Review({username, pfp, title, recommend, text, game_pic, genre, home, id, handleEditReview, handleDeleteReview}){
     const [editMode, setEditMode] = useState(false);
@@ -30,6 +31,7 @@ function Review({username, pfp, title, recommend, text, game_pic, genre, home, i
                     setEditMode((!editMode))}} className="edit-submit">Edit Review</button> 
                 <button onClick={handleDelete} className="edit-submit">Delete Review</button></div>: ""} 
             </div>
+            {editMode ? <div>Editing</div>:<></>}
         </div>
     )
 }

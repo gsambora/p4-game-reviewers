@@ -57,6 +57,25 @@ class ReviewByID(Resource):
         db.session.commit()
 
         return {'message': 'Review deleted successfully.'}, 204
+    
+    def patch(self, id):
+        review = Review.query.filter(Review.id == id).first()
+        data=request.get_json()
+
+        new_text = data.get('text')
+        rec_bool = None
+        if data.get('recommend') == "Y":
+            rec_bool = True
+        elif data.get('recommend') == "N":
+            rec_bool = False
+
+        setattr(review, "recommend", rec_bool)
+        setattr(review, "rev_text", new_text)
+
+        db.session.add(review)
+        db.session.commit()
+
+        return review.to_dict(), 201
 
 class CheckSession(Resource):
     def get(self):
