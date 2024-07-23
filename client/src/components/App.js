@@ -28,7 +28,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <h1>GameTalk!</h1>
+      <h1>GameTalk</h1>
       <NavBar className={"navBar"}/>
       <main>
         <Switch>
@@ -42,7 +42,7 @@ function App() {
             <Signup onSignup={handleLogin} userStatus={user}/>
           </Route> 
           <Route path="/">
-            <Home />
+            <Home userInfo={user}/>
           </Route>
         </Switch>
       </main>
