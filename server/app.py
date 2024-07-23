@@ -59,6 +59,21 @@ class CheckSession(Resource):
             return user.to_dict(), 200
         
         return {}, 401
+    
+class Signup(Resource):
+    def post(self):
+        new_user = User(
+            username=request.get_json().get('username'),
+            pfp_image_url=request.get_json().get('pfp_image_url'),
+            bio=request.get_json().get('bio')
+        )
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        return new_user.to_dict(), 201
+
+
 
 api.add_resource(Reviews, '/reviews', endpoint='reviews')
 api.add_resource(Users, '/users', endpoint='users')
@@ -67,6 +82,7 @@ api.add_resource(UserByID, '/users/<int:id>', endpoint="user_by_id")
 api.add_resource(GameByID, '/games/<int:id>', endpoint="game_by_id")
 
 api.add_resource(CheckSession, '/check_session', endpoint="check_session")
+api.add_resource(Signup, '/signup', endpoint="signup")
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
