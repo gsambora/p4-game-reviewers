@@ -29,7 +29,7 @@ function App() {
   return (
     <BrowserRouter>
       <h1>GameTalk</h1>
-      <NavBar className={"navBar"}/>
+      <NavBar onLogout={handleLogout} className={"navBar"}/>
       <main>
         <Switch>
           <Route path="/allreviews">

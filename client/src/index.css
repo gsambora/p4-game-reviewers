@@ -96,6 +96,8 @@ body{
   margin: 1rem 2rem;
   background-color: #ced97e;
   border-radius: 20px;
+  font-size:15px;
+  color: darkslateblue;
 }
 
 .login-form label{
