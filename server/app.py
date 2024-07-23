@@ -119,6 +119,13 @@ class NewReview(Resource):
 
             return new_review.to_dict(), 200
 
+class CurrentReviews(Resource):
+    def get(self):
+        user_id = session['user_id']
+        reviews = Review.query.filter_by(user_id=user_id).all()
+        reviews_as_dicts = [review.to_dict() for review in reviews]
+
+        return reviews_as_dicts, 200
 
 api.add_resource(Reviews, '/reviews', endpoint='reviews')
 api.add_resource(Users, '/users', endpoint='users')
@@ -130,6 +137,8 @@ api.add_resource(CheckSession, '/check_session', endpoint="check_session")
 api.add_resource(Signup, '/signup', endpoint="signup")
 api.add_resource(Login, '/login', endpoint="login")
 api.add_resource(NewReview, '/newreview', endpoint="newreview")
+
+api.add_resource(CurrentReviews, '/currentreviews', endpoint="currentreviews")
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
