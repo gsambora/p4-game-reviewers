@@ -4,9 +4,12 @@ import Review from "../components/Review";
 function Home({userInfo}){
     let accountInfo = <></>
     if (userInfo){
-        accountInfo = <><p>Your account information:</p>
-        <img src={userInfo.pfp_image_url}/>
-        <p><strong>Bio: </strong>{userInfo.bio}</p></>
+        accountInfo = <div className="acct-info">
+            <h3>Welcome, {userInfo.username}!</h3>
+            <p className="your-info-text">Your account information:</p>
+            <img src={userInfo.pfp_image_url}/>
+            <p><strong>Bio: </strong>{userInfo.bio}</p>
+        </div>
     }
     
 
@@ -48,15 +51,17 @@ function Home({userInfo}){
     return(
         <div>
             <h2 style={{paddingTop: "20px"}}>Home</h2>
-            <h3>{userInfo ? `Welcome, ${userInfo.username}!` : "Please log in!"}</h3>
-            <div className="acct-info">{accountInfo}</div>
+            <h3>{userInfo ? "" : "Please log in!"}</h3>
+            <div className="acct-info-container">{accountInfo}</div>
 
             <h3>Latest Reviews:</h3>
             {reviews.length === 0 ? (<p>Loading...</p>) :(
              reviews.map((review) => {
                 //console.log(review)
-                return <Review key={review.id} username={review.user.username} pfp={review.user.pfp_image_url} title={review.game.title} recommend={review.recommend} text={review.rev_text}/>})
-            )}
+                return <Review key={review.id} username={review.user.username} pfp={review.user.pfp_image_url} 
+                title={review.game.title} game_pic={review.game.cover_art_url} genre={review.game.genre}
+                recommend={review.recommend} text={review.rev_text}/>})
+        )}
         </div>
     )
 }

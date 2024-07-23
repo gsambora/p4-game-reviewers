@@ -14,38 +14,6 @@ body{
   background-color: #F9E9E4
 }
 
-/* .review-box {
-  padding: 2rem 1rem;
-  margin: 2rem 0;
-  border: solid 1px;
-  background-color: #D4EAE4;
-  border-radius: 8px;
-  position: relative;
-}
-
-.review-box h2{
-  position: relative;
-  left: 1rem
-}
-
-.review-box img{
-  height: 3rem; 
-  float: left; 
-  width: 3rem; }
-
-
-.game-box{
-  padding: 2rem 1rem;
-  margin: auto;
-  border: solid 1px;
-  background-color: #F2A7AD;
-  border-radius: 8px;
-  width: 10rem;
-  height: 6rem;
-  -webkit-transform: translate(250%, 0%);  
-  transform: translate(250%, 0%); 
-} */
-
 .review-box {
   padding: 2rem 1rem;
   margin: 2rem 0;
@@ -61,10 +29,34 @@ body{
   left: 1rem;
 }
 
-.review-box img {
+.review-pfp {
   height: 3rem; 
   float: left; 
   width: 3rem;
+}
+
+.acct-info-container{
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.acct-info{
+  padding: 1rem 1rem;
+  margin: 2rem 0;
+  border: solid 1px;
+  background-color: lavender;
+  border-radius: 8px;
+  width: 50%;
+}
+
+.your-info-text{
+  font-weight:bold;
+  text-decoration: underline;
+}
+
+.acct-info img{
+  float: left;
 }
 
 .game-box {
@@ -81,6 +73,14 @@ body{
   text-align: center;
 }
 
+.game-box img {
+  height: 4rem;
+  margin: 0; 
+}
+
+.game-box p {
+  margin: 0; 
+}
 /* .review-box button{
   float: right;
   height:2rem;
