@@ -73,6 +73,15 @@ class Signup(Resource):
 
         return new_user.to_dict(), 201
 
+class Login(Resource):
+    def post(self):
+        username = request.get_json().get('username')
+        user = User.query.filter(User.username == username).first()
+
+        if user:
+            return user.to_dict(), 200
+        else:
+            return {'message': 'User not found.'}, 404
 
 
 api.add_resource(Reviews, '/reviews', endpoint='reviews')
@@ -83,6 +92,7 @@ api.add_resource(GameByID, '/games/<int:id>', endpoint="game_by_id")
 
 api.add_resource(CheckSession, '/check_session', endpoint="check_session")
 api.add_resource(Signup, '/signup', endpoint="signup")
+api.add_resource(Login, '/login', endpoint="login")
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

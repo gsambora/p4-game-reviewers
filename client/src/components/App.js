@@ -3,7 +3,8 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import AllReviews from "../pages/AllReviews";
 import NavBar from "./NavBar";
 import Home from "../pages/Home";
-import LogIn from "../pages/LogIn";
+import Signup from "../pages/Signup";
+import Login from "../pages/Login";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -27,7 +28,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <h1>Project Client</h1>
+      <h1>GameTalk!</h1>
       <NavBar className={"navBar"}/>
       <main>
         <Switch>
@@ -35,7 +36,10 @@ function App() {
             <AllReviews />
           </Route>
           <Route path="/login">
-            <LogIn onLogin={handleLogin} userStatus={user}/>
+            <Login onLogin={handleLogin} userStatus={user}/>
+          </Route>
+          <Route path="/signup">
+            <Signup onSignup={handleLogin} userStatus={user}/>
           </Route> 
           <Route path="/">
             <Home />

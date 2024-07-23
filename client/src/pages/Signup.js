@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useFormik } from "formik";
+import { useFormik, resetForm } from "formik";
 import * as yup from "yup";
 
-function LogIn( {onLogin, userStatus} ){
+function Signup( {onSignup, userStatus} ){
+    const [errorMessage, setErrorMessage] = useState("")
+
     const formSchema = yup.object().shape({
         username: yup.string().required("Must enter username"),
         pfp_image_url: yup.string(),
         bio: yup.string().max(300)
     });
+
 
     const formik = useFormik({
         initialValues: {
@@ -20,6 +23,7 @@ function LogIn( {onLogin, userStatus} ){
         validationSchema: formSchema,
         
         onSubmit: (values) => {
+            setErrorMessage("")
             fetch("/signup", {
                 method: "POST",
                 headers: {
@@ -29,25 +33,30 @@ function LogIn( {onLogin, userStatus} ){
             }).then((response)=>{
                 if (response.ok) {
                     return response.json();
+                } else {
+                    throw new Error("Error with sign up");
                 }
             }).then((user)=> {
-                onLogin(user);
+                onSignup(user);
+                formik.resetForm();
             }).catch((error)=> {
                 console.error(error);
+                setErrorMessage( "Error with sign up, please try again" )
             });
         }
     })
 
     return(
-        <div>
-            <h1>{userStatus ? "Sign up successful! Now logged in." : "Sign up below"}</h1>
+        <div className="login-form">
+            <h2 style={{paddingTop: "20px"}}>{userStatus ? "Sign up successful! Now logged in." : "Sign up below:"}</h2>
+            <h3 style={{color:"red"}}>{errorMessage}</h3>
             <form onSubmit={formik.handleSubmit} style={{margin: "30px"}}>
                 <label htmlFor="username">Username</label>
                 <input 
                     id = "username"
                     username = "username"
                     onChange = {formik.handleChange}
-                    value = {formik.values.name}
+                    value = {formik.values.username}
                 />
                 <p style={{color:"red"}}>{formik.errors.username}</p>
 
@@ -76,4 +85,4 @@ function LogIn( {onLogin, userStatus} ){
     )
 }
 
-export default LogIn;
+export default Signup;

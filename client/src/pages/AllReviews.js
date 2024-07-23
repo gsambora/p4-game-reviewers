@@ -37,7 +37,7 @@ function AllReviews(){
     
     return(
         <>
-        <h1>All Reviews:</h1>
+        <h2 style={{paddingTop: "20px"}}>All Reviews:</h2>
         {reviews.length === 0 ? (<p>Loading...</p>) :(
              reviews.map((review) => {
                 //console.log(review)

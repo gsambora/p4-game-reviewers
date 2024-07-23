@@ -5,6 +5,11 @@
   --text: hsla(0, 0%, 100%, 0.88);
 }
 
+html{
+  font-family: "Ubuntu", sans-serif;
+  font-weight: lighter;
+}
+
 body{
   background-color: #F9E9E4
 }
@@ -42,4 +47,23 @@ body{
   margin: 1rem 2rem;
   background-color: #ced97e;
   border-radius: 20px;
+}
+
+.login-form label{
+  margin-right: 10px;
+  height:2rem;
+  background-color: #F2A7AD;
+  border-radius: 10px;
+  padding: 0.4rem;
+  border: solid 1.5px #79523E;
+}
+
+.login-form button{
+  margin-right: 10px;
+  height:2rem;
+  background-color: #F28888;
+  border-radius: 10px;
+  padding: 0.4rem;
+  border: solid 1.5px #79523E;
+  font-family: "Ubuntu", sans-serif;
 }
