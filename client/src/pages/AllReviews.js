@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import Review from "../components/Review";
 
-function AllReviews(){
+function AllReviews({newReviewPosted, finishedUpdatingReviews}){
     const [reviews, setReviews] = useState([]);
 
     useEffect(() => {
+      //console.log("Fetching reviews again")
         fetch("/reviews")
           .then((r) => r.json())
           .then((reviewData) => {
@@ -30,9 +31,10 @@ function AllReviews(){
                 ));
       
               setReviews(updatedReviews);
+              finishedUpdatingReviews();
             });
           });
-      }, []);
+      }, [newReviewPosted]);
 
     
     return(

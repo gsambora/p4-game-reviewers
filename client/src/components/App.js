@@ -9,6 +9,7 @@ import NewReview from "../pages/NewReview";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [newReviewPosted, setNewReviewPosted] = useState(false);
 
   useEffect(()=>{
     fetch("/check_session")
@@ -27,6 +28,16 @@ function App() {
       setUser(null);
     }
 
+    function handleNewReview(){
+      //console.log("Handling new review")
+      setNewReviewPosted(true);
+    }
+
+    function newReviewDone(){
+      //console.log("Done handling new review")
+      setNewReviewPosted(false);
+    }
+
   return (
     <BrowserRouter>
       <h1>GameTalk</h1>
@@ -34,7 +45,7 @@ function App() {
       <main>
         <Switch>
           <Route path="/allreviews">
-            <AllReviews />
+            <AllReviews newReviewPosted={newReviewPosted} finishedUpdatingReviews={newReviewDone}/>
           </Route>
           <Route path="/login">
             <Login onLogin={handleLogin} userStatus={user}/>
@@ -43,7 +54,7 @@ function App() {
             <Signup onSignup={handleLogin} userStatus={user}/>
           </Route>
           <Route path="/newreview">
-            <NewReview userStatus={user}/>
+            <NewReview handleNewReview={handleNewReview} userStatus={user}/>
           </Route>
           <Route path="/">
             <Home userInfo={user}/>

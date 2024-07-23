@@ -95,7 +95,30 @@ class Logout(Resource):
 
 class NewReview(Resource):
     def post(self):
-        pass
+        data = request.get_json()
+        rec_bool = None
+        if data.get('recommend') == "Y":
+            rec_bool = True
+        elif data.get('recommend') == "N":
+            rec_bool = False
+
+        gametitle = data.get('gametitle')
+        game = Game.query.filter(Game.title == gametitle).first()
+        if not game:
+            return {'message': 'Game not found'}, 404
+        else:
+            new_review = Review(
+                recommend=rec_bool,
+                rev_text=data.get('text'),
+                user_id = session.get('user_id'),
+                game_id = game.id
+            )
+            
+            db.session.add(new_review)
+            db.session.commit()
+
+            return new_review.to_dict(), 200
+
 
 api.add_resource(Reviews, '/reviews', endpoint='reviews')
 api.add_resource(Users, '/users', endpoint='users')
