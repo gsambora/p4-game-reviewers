@@ -6,6 +6,25 @@ import Home from "../pages/Home";
 import LogIn from "../pages/LogIn";
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  useEffect(()=>{
+    fetch("/check_session")
+    .then((response)=>{
+      if (response.ok) {
+        response.json().then((user)=> setUser(user));
+        }
+      });
+    }, []);
+
+    function handleLogin(user){
+      setUser(user);
+    }
+
+    function handleLogout(){
+      setUser(null);
+    }
+
   return (
     <BrowserRouter>
       <h1>Project Client</h1>
@@ -16,8 +35,8 @@ function App() {
             <AllReviews />
           </Route>
           <Route path="/login">
-            <LogIn />
-          </Route>
+            <LogIn onLogin={handleLogin} userStatus={user}/>
+          </Route> 
           <Route path="/">
             <Home />
           </Route>

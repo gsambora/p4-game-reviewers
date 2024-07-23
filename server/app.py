@@ -3,7 +3,7 @@
 # Standard library imports
 
 # Remote library imports
-from flask import request, jsonify
+from flask import request, jsonify, session
 from flask_restful import Resource
 
 # Local imports
@@ -49,12 +49,24 @@ class GameByID(Resource):
         game_json = game.to_dict()
 
         return game_json, 200
+    
+class CheckSession(Resource):
+    def get(self):
+        user_id = session['user_id']
+
+        if user_id:
+            user = User.query.filter(User.id == user_id).first()
+            return user.to_dict(), 200
+        
+        return {}, 401
 
 api.add_resource(Reviews, '/reviews', endpoint='reviews')
 api.add_resource(Users, '/users', endpoint='users')
 api.add_resource(Games, '/games', endpoint='games')
 api.add_resource(UserByID, '/users/<int:id>', endpoint="user_by_id")
 api.add_resource(GameByID, '/games/<int:id>', endpoint="game_by_id")
+
+api.add_resource(CheckSession, '/check_session', endpoint="check_session")
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
