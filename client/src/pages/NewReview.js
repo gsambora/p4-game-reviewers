@@ -35,7 +35,6 @@ function NewReview( {userStatus} ){
                     throw new Error("Error with login");
                 }
             }).then((user)=> {
-                onLogin(user);
                 formik.resetForm();
             }).catch((error)=> {
                 console.error(error);

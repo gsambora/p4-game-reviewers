@@ -52,13 +52,16 @@ class GameByID(Resource):
     
 class CheckSession(Resource):
     def get(self):
-        user_id = session['user_id']
+        user_id = session.get('user_id')
 
         if user_id:
             user = User.query.filter(User.id == user_id).first()
-            return user.to_dict(), 200
-        
-        return {}, 401
+            if user:
+                return user.to_dict(), 200
+            else:
+                return {'message': 'User not found.'}, 404
+        else:
+            return {}, 401
     
 class Signup(Resource):
     def post(self):
@@ -71,6 +74,8 @@ class Signup(Resource):
         db.session.add(new_user)
         db.session.commit()
 
+        session['user_id'] = new_user.id
+
         return new_user.to_dict(), 201
 
 class Login(Resource):
@@ -79,9 +84,14 @@ class Login(Resource):
         user = User.query.filter(User.username == username).first()
 
         if user:
+            session['user_id'] = user.id
             return user.to_dict(), 200
         else:
             return {'message': 'User not found.'}, 404
+        
+class Logout(Resource):
+    def post(self):
+        session['user_id'] = None
 
 class NewReview(Resource):
     def post(self):

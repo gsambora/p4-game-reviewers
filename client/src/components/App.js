@@ -5,6 +5,7 @@ import NavBar from "./NavBar";
 import Home from "../pages/Home";
 import Signup from "../pages/Signup";
 import Login from "../pages/Login";
+import NewReview from "../pages/NewReview";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -40,7 +41,10 @@ function App() {
           </Route>
           <Route path="/signup">
             <Signup onSignup={handleLogin} userStatus={user}/>
-          </Route> 
+          </Route>
+          <Route path="/newreview">
+            <NewReview userStatus={user}/>
+          </Route>
           <Route path="/">
             <Home userInfo={user}/>
           </Route>
