@@ -77,7 +77,7 @@ function NewReview( {handleNewReview, userStatus} ){
                 />
                 <p style={{color:"red"}}>{formik.errors.text}</p>
 
-                <button type="submit">Submit</button>
+                <button className="edit-submit" type="submit">Submit</button>
             </form>
 
         </div>

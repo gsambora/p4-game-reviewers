@@ -76,7 +76,7 @@ function NewGame( {handleNewReview, userStatus} ){
                 />
                 <p style={{color:"red"}}>{formik.errors.genre}</p>
 
-                <button type="submit">Submit</button>
+                <button className="edit-submit" type="submit">Submit</button>
             </form>
 
         </div>

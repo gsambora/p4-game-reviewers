@@ -58,7 +58,7 @@ function Login( {onLogin, userStatus} ){
                 />
                 <p style={{color:"red"}}>{formik.errors.username}</p>
 
-                <button type="submit">Submit</button>
+                <button className="edit-submit" type="submit">Submit</button>
             </form>
 
         </div>

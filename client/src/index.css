@@ -123,7 +123,7 @@ body{
   border: solid 1.5px #79523E;
 }
 
-.login-form button{
+.edit-submit{
   margin-right: 10px;
   height:2rem;
   background-color: #F28888;

@@ -78,7 +78,7 @@ function Signup( {onSignup, userStatus} ){
                 />
                 <p style={{color:"red"}}>{formik.errors.bio}</p>
 
-                <button type="submit">Submit</button>
+                <button className="edit-submit" type="submit">Submit</button>
             </form>
 
         </div>

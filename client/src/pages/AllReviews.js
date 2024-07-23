@@ -45,7 +45,7 @@ function AllReviews({newReviewPosted, finishedUpdatingReviews}){
                 //console.log(review)
                 return <Review key={review.id} username={review.user.username} pfp={review.user.pfp_image_url} 
                 title={review.game.title} game_pic={review.game.cover_art_url} genre={review.game.genre}
-                recommend={review.recommend} text={review.rev_text}/>})
+                recommend={review.recommend} text={review.rev_text} home={false}/>})
         )}
         </>
     )

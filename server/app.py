@@ -90,8 +90,9 @@ class Login(Resource):
             return {'message': 'User not found.'}, 404
         
 class Logout(Resource):
-    def post(self):
+    def delete(self):
         session['user_id'] = None
+        return {}, 204
 
 class NewReview(Resource):
     def post(self):
@@ -152,10 +153,11 @@ api.add_resource(CheckSession, '/check_session', endpoint="check_session")
 api.add_resource(Signup, '/signup', endpoint="signup")
 api.add_resource(Login, '/login', endpoint="login")
 api.add_resource(NewReview, '/newreview', endpoint="newreview")
+api.add_resource(Logout, '/logout', endpoint="logout")
 
 api.add_resource(CurrentReviews, '/currentreviews', endpoint="currentreviews")
 api.add_resource(NewGame, '/newgame', endpoint="newgame")
 
 if __name__ == '__main__':
-    app.run(port=5555, debug=True)
+    app.run(port=5555, debug=True)  
 

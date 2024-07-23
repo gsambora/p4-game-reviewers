@@ -27,7 +27,9 @@ function App() {
     }
 
     function handleLogout(){
-      setUser(null);
+      fetch("/logout", {
+        method: "DELETE",
+      }).then((setUser(null)))
     }
 
     function handleNewReview(){
@@ -38,6 +40,14 @@ function App() {
     function newReviewDone(){
       //console.log("Done handling new review")
       setNewReviewPosted(false);
+    }
+
+    function handleUpdateReview(){
+      setNewReviewPosted(true);
+    }
+
+    function handleDeleteReview(){
+      setNewReviewPosted(true);
     }
 
   return (
@@ -64,7 +74,7 @@ function App() {
           <Route path="/allgames">
             <AllGames />
           </Route>
-          <Route path="/">
+          <Route path="/" handleDeleteReview={handleDeleteReview} handleUpdateReview={handleUpdateReview}>
             <Home userInfo={user}/>
           </Route>
         </Switch>
