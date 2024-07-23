@@ -1,6 +1,11 @@
 import React from "react";
 
-function Review({username, pfp, title, recommend, text, game_pic, genre, home}){
+function Review({username, pfp, title, recommend, text, game_pic, genre, home, id, handleEditReview, handleDeleteReview}){
+    function handleDelete(){
+        fetch(`reviews/${id}`, {method: "delete"});
+
+        handleDeleteReview();
+    }
 
     return(
         <div className="review-container">
@@ -15,7 +20,8 @@ function Review({username, pfp, title, recommend, text, game_pic, genre, home}){
                 </div>
                 <div>Would you recommend the game?: {recommend ? 'Yes' : 'No'}</div>
                 <p>{text}</p>
-                {home ? <button className="edit-submit">Edit Review</button> : ""} 
+                {home ? <div><button  className="edit-submit">Edit Review</button> 
+                <button onClick={handleDelete} className="edit-submit">Delete Review</button></div>: ""} 
             </div>
         </div>
     )

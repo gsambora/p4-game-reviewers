@@ -88,9 +88,10 @@ function Home({userInfo, handleUpdateReview, handleDeleteReview}){
             {reviews.length === 0 ? (<p>Loading...</p>) :(
              reviews.map((review) => {
                 //console.log(review)
-                return <Review key={review.id} username={review.user.username} pfp={review.user.pfp_image_url} 
+                return <Review key={review.id} id={review.id} username={review.user.username} pfp={review.user.pfp_image_url} 
                 title={review.game.title} game_pic={review.game.cover_art_url} genre={review.game.genre}
-                recommend={review.recommend} text={review.rev_text} home={true}/>})
+                recommend={review.recommend} text={review.rev_text} home={true}
+                handleDeleteReview={handleDeleteReview} handleEditReview={handleUpdateReview}/>})
         )}
         </div>
     )

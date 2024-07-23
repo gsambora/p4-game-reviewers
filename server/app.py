@@ -49,7 +49,15 @@ class GameByID(Resource):
         game_json = game.to_dict()
 
         return game_json, 200
-    
+
+class ReviewByID(Resource):
+    def delete(self, id):
+        review = Review.query.filter(Review.id == id).first()
+        db.session.delete(review)
+        db.session.commit()
+
+        return {'message': 'Review deleted successfully.'}, 204
+
 class CheckSession(Resource):
     def get(self):
         user_id = session.get('user_id')
@@ -148,6 +156,7 @@ api.add_resource(Users, '/users', endpoint='users')
 api.add_resource(Games, '/games', endpoint='games')
 api.add_resource(UserByID, '/users/<int:id>', endpoint="user_by_id")
 api.add_resource(GameByID, '/games/<int:id>', endpoint="game_by_id")
+api.add_resource(ReviewByID, '/reviews/<int:id>', endpoint="review_by_id")
 
 api.add_resource(CheckSession, '/check_session', endpoint="check_session")
 api.add_resource(Signup, '/signup', endpoint="signup")
