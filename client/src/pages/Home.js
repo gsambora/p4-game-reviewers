@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Review from "../components/Review";
 
-function Home({userInfo, handleUpdateReview, handleDeleteReview}){
+function Home({userInfo, newReviewPosted, handleUpdateReview, handleDeleteReview}){
     let accountInfo = <></>
     if (userInfo){
         accountInfo = <div className="acct-info">
@@ -76,7 +76,7 @@ function Home({userInfo, handleUpdateReview, handleDeleteReview}){
           });
         });
       }
-      }, []);
+      }, [newReviewPosted]);
 
     return(
         <div>

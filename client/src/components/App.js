@@ -75,7 +75,7 @@ function App() {
             <AllGames />
           </Route>
           <Route path="/">
-            <Home userInfo={user} handleDeleteReview={handleDeleteReview} handleUpdateReview={handleUpdateReview}/>
+            <Home userInfo={user} newReviewPosted={newReviewPosted} handleDeleteReview={handleDeleteReview} handleUpdateReview={handleUpdateReview}/>
           </Route>
         </Switch>
       </main>
