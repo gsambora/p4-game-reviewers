@@ -83,6 +83,9 @@ class Login(Resource):
         else:
             return {'message': 'User not found.'}, 404
 
+class NewReview(Resource):
+    def post(self):
+        pass
 
 api.add_resource(Reviews, '/reviews', endpoint='reviews')
 api.add_resource(Users, '/users', endpoint='users')
@@ -93,6 +96,7 @@ api.add_resource(GameByID, '/games/<int:id>', endpoint="game_by_id")
 api.add_resource(CheckSession, '/check_session', endpoint="check_session")
 api.add_resource(Signup, '/signup', endpoint="signup")
 api.add_resource(Login, '/login', endpoint="login")
+api.add_resource(NewReview, '/newreview', endpoint="newreview")
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
