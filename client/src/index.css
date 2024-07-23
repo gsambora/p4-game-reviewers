@@ -81,14 +81,28 @@ body{
 .game-box p {
   margin: 0; 
 }
-/* .review-box button{
-  float: right;
-  height:2rem;
+
+.all-game-container{
+  width: 100%
+}
+
+.game-list-box{
+  padding: 1rem;
+  margin:2.5%;
+  border: solid 1px;
   background-color: #F2A7AD;
-  border-radius: 20px;
-  padding: 0.5rem;
-  border: solid 1.5px #79523E;
-} */
+  border-radius: 8px;
+  height:10rem;
+  width:45%;
+  float:left;
+  box-sizing:border-box;
+}
+
+.game-cover-art{
+  height: 6rem; 
+  float: left; 
+  margin:20px
+}
 
 .navLink{
   padding: 0.7rem;

@@ -5,7 +5,7 @@ function NavBar({onLogout}){
     return(
         <nav>
             <Link className={"navLink"} to="/">Home</Link>
-
+            <Link className={"navLink"} to="/newgame">New Game</Link>
             <Link className={"navLink"} to="/newreview">New Review</Link>
             
             <Link className={"navLink"} to="allreviews">All Reviews</Link>

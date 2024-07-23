@@ -6,6 +6,8 @@ import Home from "../pages/Home";
 import Signup from "../pages/Signup";
 import Login from "../pages/Login";
 import NewReview from "../pages/NewReview";
+import NewGame from "../pages/NewGame";
+import AllGames from "../pages/AllGames"
 
 function App() {
   const [user, setUser] = useState(null);
@@ -55,6 +57,12 @@ function App() {
           </Route>
           <Route path="/newreview">
             <NewReview handleNewReview={handleNewReview} userStatus={user}/>
+          </Route>
+          <Route path="/newgame">
+            <NewGame userStatus={user}/>
+          </Route>
+          <Route path="/allgames">
+            <AllGames />
           </Route>
           <Route path="/">
             <Home userInfo={user}/>

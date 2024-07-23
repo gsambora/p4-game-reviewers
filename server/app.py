@@ -126,6 +126,21 @@ class CurrentReviews(Resource):
         reviews_as_dicts = [review.to_dict() for review in reviews]
 
         return reviews_as_dicts, 200
+    
+class NewGame(Resource):
+    def post(self):
+        data = request.get_json()
+        new_game = Game(
+            title=data.get('gametitle'),
+            cover_art_url=data.get('coverart'),
+            genre=data.get('genre')
+        )
+
+        db.session.add(new_game)
+        db.session.commit()
+
+        return new_game.to_dict(), 200
+
 
 api.add_resource(Reviews, '/reviews', endpoint='reviews')
 api.add_resource(Users, '/users', endpoint='users')
@@ -139,6 +154,7 @@ api.add_resource(Login, '/login', endpoint="login")
 api.add_resource(NewReview, '/newreview', endpoint="newreview")
 
 api.add_resource(CurrentReviews, '/currentreviews', endpoint="currentreviews")
+api.add_resource(NewGame, '/newgame', endpoint="newgame")
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
