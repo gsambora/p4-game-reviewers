@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Review from "../components/Review";
 
-function Home({userInfo, newReviewPosted, handleUpdateReview, handleDeleteReview}){
+function Home({userInfo, newReviewPosted, handleUpdateReview, handleDeleteReview, handleLogout}){
     let accountInfo = <></>
     if (userInfo){
         accountInfo = <div className="acct-info">

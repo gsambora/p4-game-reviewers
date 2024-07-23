@@ -13,14 +13,35 @@ function App() {
   const [user, setUser] = useState(null);
   const [newReviewPosted, setNewReviewPosted] = useState(false);
 
-  useEffect(()=>{
+  useEffect(() => {
     fetch("/check_session")
-    .then((response)=>{
-      if (response.ok) {
-        response.json().then((user)=> setUser(user));
+      .then((response) => {
+        if (response.ok) {
+          response.json().then((user) => setUser(user));
+        } else {
+          setUser(null); 
         }
+      })
+      .catch((error) => {
+        console.error("Error checking session:", error);
+        setUser(null); 
       });
-    }, []);
+  }, []);
+
+  useEffect(()=>{
+    const handleBeforeUnload = (event) =>{
+      setUser(null);
+
+      fetch("/clear", {method:"delete"})
+      .then((r)=>{
+        console.log("Session cleared")
+      }).catch((error)=>{
+        console.log("Error clearing session: ", error)
+      });
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload)
+  }, []);
 
     function handleLogin(user){
       setUser(user);
@@ -32,11 +53,6 @@ function App() {
       }).then((setUser(null)))
     }
 
-    function handleNewReview(){
-      //console.log("Handling new review")
-      setNewReviewPosted(true);
-    }
-
     function newReviewDone(){
       //console.log("Done handling new review")
       setNewReviewPosted(false);
@@ -46,9 +62,6 @@ function App() {
       setNewReviewPosted(true);
     }
 
-    function handleDeleteReview(){
-      setNewReviewPosted(true);
-    }
 
   return (
     <BrowserRouter>
@@ -66,7 +79,7 @@ function App() {
             <Signup onSignup={handleLogin} userStatus={user}/>
           </Route>
           <Route path="/newreview">
-            <NewReview handleNewReview={handleNewReview} userStatus={user}/>
+            <NewReview handleNewReview={handleUpdateReview} userStatus={user}/>
           </Route>
           <Route path="/newgame">
             <NewGame userStatus={user}/>
@@ -75,7 +88,7 @@ function App() {
             <AllGames />
           </Route>
           <Route path="/">
-            <Home userInfo={user} newReviewPosted={newReviewPosted} handleDeleteReview={handleDeleteReview} handleUpdateReview={handleUpdateReview}/>
+            <Home handleLogout={handleLogout} userInfo={user} newReviewPosted={newReviewPosted} handleDeleteReview={handleUpdateReview} handleUpdateReview={handleUpdateReview}/>
           </Route>
         </Switch>
       </main>

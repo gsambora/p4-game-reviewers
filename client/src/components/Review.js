@@ -1,10 +1,16 @@
-import React from "react";
+import React, {useState} from "react";
 
 function Review({username, pfp, title, recommend, text, game_pic, genre, home, id, handleEditReview, handleDeleteReview}){
+    const [editMode, setEditMode] = useState(false);
+
     function handleDelete(){
         fetch(`reviews/${id}`, {method: "delete"});
 
         handleDeleteReview();
+    }
+
+    function handleEdit(){
+
     }
 
     return(
@@ -20,7 +26,8 @@ function Review({username, pfp, title, recommend, text, game_pic, genre, home, i
                 </div>
                 <div>Would you recommend the game?: {recommend ? 'Yes' : 'No'}</div>
                 <p>{text}</p>
-                {home ? <div><button  className="edit-submit">Edit Review</button> 
+                {home ? <div><button onClick={()=>{console.log("Editing") 
+                    setEditMode((!editMode))}} className="edit-submit">Edit Review</button> 
                 <button onClick={handleDelete} className="edit-submit">Delete Review</button></div>: ""} 
             </div>
         </div>
