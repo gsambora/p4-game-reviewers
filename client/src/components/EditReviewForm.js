@@ -6,7 +6,6 @@ function EditReviewForm( {id, handleNewReview, userStatus} ){
     const [errorMessage, setErrorMessage] = useState("")
 
     const formSchema = yup.object().shape({
-        gametitle: yup.string().required("Must enter game title"),
         recommend: yup.string().oneOf(["Y", "N"]).required("Must choose Y or N"),
         text: yup.string().max(500)
     });
@@ -14,7 +13,6 @@ function EditReviewForm( {id, handleNewReview, userStatus} ){
 
     const formik = useFormik({
         initialValues: {
-            gametitle:"",
             recommend:"",
             text:"",
         },
@@ -23,8 +21,8 @@ function EditReviewForm( {id, handleNewReview, userStatus} ){
         
         onSubmit: (values) => {
             setErrorMessage("")
-            fetch("/newreview", {
-                method: "POST",
+            fetch(`/review/${id}`, {
+                method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -33,21 +31,21 @@ function EditReviewForm( {id, handleNewReview, userStatus} ){
                 if (response.ok) {
                     return response.json();
                 } else {
-                    throw new Error("Error with review");
+                    throw new Error("Error with updated review");
                 }
             }).then((r)=> {
                 handleNewReview();
                 formik.resetForm();
             }).catch((error)=> {
                 console.error(error);
-                setErrorMessage( "Error with review, please try again" )
+                setErrorMessage( "Error with updated review, please try again" )
             });
         }
     })
 
     return(
         <div className="review-form">
-            <h2 style={{paddingTop: "20px"}}>{userStatus ? "" : "Please log in before writing a review!"}</h2>
+            <h2 style={{paddingTop: "20px"}}>Enter your updated review:</h2>
             <h3 style={{color:"red"}}>{errorMessage}</h3>
             <form onSubmit={formik.handleSubmit} style={{margin: "30px"}}>
                 <label htmlFor="gametitle">Game Title</label>

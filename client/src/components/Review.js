@@ -1,8 +1,9 @@
 import React, {useState} from "react";
-import EditReviewForm from "./EditReviewForm";
+import EditRecommend from "./EditRecommend";
 
 function Review({username, pfp, title, recommend, text, game_pic, genre, home, id, handleEditReview, handleDeleteReview}){
     const [editMode, setEditMode] = useState(false);
+    const [recLetter, setRecommend] = useState(recommend);
 
     function handleDelete(){
         fetch(`reviews/${id}`, {method: "delete"});
@@ -10,8 +11,8 @@ function Review({username, pfp, title, recommend, text, game_pic, genre, home, i
         handleDeleteReview();
     }
 
-    function handleEdit(){
-
+    function handleChangeRec(){
+        setRecommend(!recLetter);
     }
 
     return(
@@ -25,7 +26,13 @@ function Review({username, pfp, title, recommend, text, game_pic, genre, home, i
                     <img src={game_pic} />
                     <p>{genre}</p>
                 </div>
-                <div>Would you recommend the game?: {recommend ? 'Yes' : 'No'}</div>
+                <div>
+                    Would you recommend the game?: {editMode ? (
+                        <EditRecommend id={id} changeMode={setEditMode} handleChangeRec={handleChangeRec} handleNewReview={handleEditReview} />
+                    ):(
+                        recLetter ? 'Yes' : 'No'
+                    )}
+                </div>
                 <p>{text}</p>
                 {home ? <div><button onClick={()=>{console.log("Editing") 
                     setEditMode((!editMode))}} className="edit-submit">Edit Review</button> 

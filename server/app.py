@@ -60,6 +60,7 @@ class ReviewByID(Resource):
     
     def patch(self, id):
         review = Review.query.filter(Review.id == id).first()
+        print(review)
         data=request.get_json()
 
         new_text = data.get('text')
@@ -69,6 +70,7 @@ class ReviewByID(Resource):
         elif data.get('recommend') == "N":
             rec_bool = False
 
+        print("New recommend: ", rec_bool)
         setattr(review, "recommend", rec_bool)
         setattr(review, "rev_text", new_text)
 
