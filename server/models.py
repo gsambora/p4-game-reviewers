@@ -3,13 +3,14 @@ from sqlalchemy.ext.associationproxy import association_proxy
 
 from config import db
 from sqlalchemy import CheckConstraint
+from datetime import datetime
 
 # Models go here!
 user_game_association = db.Table(
     'user_game_association',
     db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
     db.Column('game_id', db.Integer, db.ForeignKey('games.id')),
-    db.Column('rating', db.Integer, CheckConstraint('rating >= 1 AND rating <= 5')),
+    db.Column('created_at', db.String)
 )
 
 class User(db.Model):

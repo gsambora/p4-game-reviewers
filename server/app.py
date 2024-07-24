@@ -9,7 +9,8 @@ from flask_restful import Resource
 # Local imports
 from config import app, db, api
 # Add your model imports
-from models import User, Game, Review
+from models import User, Game, Review, user_game_association
+from datetime import datetime
 
 
 # Views go here!
@@ -155,7 +156,17 @@ class NewReview(Resource):
             db.session.add(new_review)
             db.session.commit()
 
-            return new_review.to_dict(), 200
+        new_association = user_game_association.insert().values(
+            user_id=session['user_id'],
+            game_id=game.id,
+            created_at=datetime.now()
+        )
+
+        with db.engine.connect() as connection:
+            connection.execute(new_association)
+
+        
+        return new_review.to_dict(), 200
 
 class CurrentReviews(Resource):
     def get(self):

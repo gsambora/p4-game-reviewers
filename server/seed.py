@@ -9,6 +9,8 @@ from faker import Faker
 # Local imports
 from app import app
 from models import db, Review, User, Game, user_game_association
+from datetime import datetime
+from sqlalchemy import func
 
 if __name__ == '__main__':
     fake = Faker()
@@ -57,10 +59,9 @@ if __name__ == '__main__':
         db.session.add_all([r1,r2,r3,r4,r5,r6,r7,r8])
         db.session.commit()
 
-        print("Creating ratings")
-        ug_ratings = [randint(1, 5) for _ in range(8)]
-
-        user_games = [
+        print("Creating associations")
+        print("DateTime: ", datetime.now())
+        user_game_tuples = [
             (u1, g1),
             (u2, g1),
             (u2, g3),
@@ -71,8 +72,16 @@ if __name__ == '__main__':
             (u1, g4),
         ]
 
-        for (user, game), rating in zip(user_games, ug_ratings):
-            db.session.execute(user_game_association.insert().values(user_id=user.id, game_id=game.id, rating=rating))
+        time = datetime.now()
+        for (user, game) in user_game_tuples:
+            new_association = user_game_association.insert().values(
+                user_id=user.id,
+                game_id=game.id,
+                created_at=time
+            )
+
+            with db.engine.connect() as connection:
+                connection.execute(new_association)
 
         db.session.commit()
 
