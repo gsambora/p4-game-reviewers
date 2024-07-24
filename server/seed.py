@@ -8,7 +8,7 @@ from faker import Faker
 
 # Local imports
 from app import app
-from models import db, Review, User, Game
+from models import db, Review, User, Game, Rating
 
 if __name__ == '__main__':
     fake = Faker()
@@ -17,6 +17,7 @@ if __name__ == '__main__':
         # Seed code goes here!
 
         print("Deleting all records")
+        Rating.query.delete()
         Review.query.delete()
         Game.query.delete()
         User.query.delete()
@@ -55,6 +56,19 @@ if __name__ == '__main__':
         r8=Review(recommend=True, rev_text=fake.paragraph(nb_sentences=2), user=u1, game=g4)
 
         db.session.add_all([r1,r2,r3,r4,r5,r6,r7,r8])
+        db.session.commit()
+
+        print("Creating ratings")
+        a1=Rating(rating=5, user=u1, game=g1)
+        a2=Rating(rating=4, user=u2, game=g1)
+        a3=Rating(rating=2, user=u2, game=g3)
+        a4=Rating(rating=3, user=u3, game=g2)
+        a5=Rating(rating=1, user=u4, game=g4)
+        a6=Rating(rating=4, user=u5, game=g4)
+        a7=Rating(rating=5, user=u4, game=g3)
+        a8=Rating(rating=3, user=u1, game=g4)
+
+        db.session.add_all([a1,a2,a3,a4,a5,a6,a7,a8])
         db.session.commit()
 
         print("Complete")
