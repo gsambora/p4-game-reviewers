@@ -2,24 +2,24 @@ import React, { useEffect, useState } from "react";
 import { useFormik, resetForm } from "formik";
 import * as yup from "yup";
 
-function EditRecommend( {id, changeMode, handleChangeRec, handleNewReview} ){
+function EditReviewText( {id, changeMode, handleChangeText, handleNewReview} ){
     const [errorMessage, setErrorMessage] = useState("")
 
     const formSchema = yup.object().shape({
-        recommend: yup.string().oneOf(["Y", "N"]).required("Must choose Y or N"),
+        text: yup.string().max(500)
     });
 
 
     const formik = useFormik({
         initialValues: {
-            recommend:"",
+            text:"",
         },
 
         validationSchema: formSchema,
         
         onSubmit: (values) => {
             setErrorMessage("")
-            fetch(`reviews/${id}`, {
+            fetch(`/reviews/${id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -28,12 +28,12 @@ function EditRecommend( {id, changeMode, handleChangeRec, handleNewReview} ){
             }).then((response)=>{
                 if (response.ok) {
                     changeMode()
-                    handleChangeRec()
                     return response.json();
                 } else {
                     throw new Error("Error with updated review");
                 }
             }).then((r)=> {
+                handleChangeText(formik.values.text);
                 handleNewReview();
                 formik.resetForm();
             }).catch((error)=> {
@@ -44,18 +44,21 @@ function EditRecommend( {id, changeMode, handleChangeRec, handleNewReview} ){
     })
 
     return(
-
         <form onSubmit={formik.handleSubmit} style={{margin: "30px"}}>
+
+            <label htmlFor="text">Review Text (Under 500 characters)</label>
             <input 
-                id = "recommend"
-                name = "recommend"
+                id = "text"
+                name = "text"
                 onChange = {formik.handleChange}
-                value = {formik.values.recommend}
+                value = {formik.values.text}
             />
-            <p style={{color:"red"}}>{formik.errors.recommend}</p>
-            <button className="edit-submit" type="submit">Submit new recommendation</button>
+            <p style={{color:"red"}}>{formik.errors.text}</p>
+
+            <button className="edit-submit" type="submit">Submit new review text</button>
         </form>
+
     )
 }
 
-export default EditRecommend;
+export default EditReviewText;

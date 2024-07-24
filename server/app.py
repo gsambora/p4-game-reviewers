@@ -63,16 +63,18 @@ class ReviewByID(Resource):
         print(review)
         data=request.get_json()
 
-        new_text = data.get('text')
-        rec_bool = None
-        if data.get('recommend') == "Y":
-            rec_bool = True
-        elif data.get('recommend') == "N":
-            rec_bool = False
-
-        print("New recommend: ", rec_bool)
-        setattr(review, "recommend", rec_bool)
-        setattr(review, "rev_text", new_text)
+        if data.get('text') != None:
+            new_text = data.get('text')
+            setattr(review, "rev_text", new_text)
+        
+        if data.get('recommend') != None:
+            rec_bool = None
+            if data.get('recommend') == "Y":
+                rec_bool = True
+            elif data.get('recommend') == "N":
+                rec_bool = False
+            setattr(review, "recommend", rec_bool)
+        
 
         db.session.add(review)
         db.session.commit()
