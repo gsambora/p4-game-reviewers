@@ -2,8 +2,16 @@ from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
 
 from config import db
+from sqlalchemy import CheckConstraint
 
 # Models go here!
+user_game_association = db.Table(
+    'user_game_association',
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
+    db.Column('game_id', db.Integer, db.ForeignKey('games.id')),
+    db.Column('rating', db.Integer, CheckConstraint('rating >= 1 AND rating <= 5')),
+)
+
 class User(db.Model):
     __tablename__='users'
 
@@ -12,11 +20,11 @@ class User(db.Model):
     pfp_image_url = db.Column(db.String)
     bio = db.Column(db.String)
 
-    reviews = db.relationship("Review", back_populates = 'user')
+    reviews = db.relationship("Review", back_populates='user')
+    games = db.relationship('Game', secondary=user_game_association, back_populates='users')
 
     def to_dict(self):
         return {col.name: getattr(self, col.name) for col in self.__table__.columns}
-
 
 class Game(db.Model):
     __tablename__='games'
@@ -26,7 +34,8 @@ class Game(db.Model):
     cover_art_url = db.Column(db.String)
     genre = db.Column(db.String)
 
-    reviews = db.relationship("Review", back_populates = 'game')
+    reviews = db.relationship("Review", back_populates='game')
+    users = db.relationship('User', secondary=user_game_association, back_populates='games')
 
     def to_dict(self):
         return {col.name: getattr(self, col.name) for col in self.__table__.columns}

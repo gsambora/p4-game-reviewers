@@ -8,7 +8,7 @@ from faker import Faker
 
 # Local imports
 from app import app
-from models import db, Review, User, Game
+from models import db, Review, User, Game, user_game_association
 
 if __name__ == '__main__':
     fake = Faker()
@@ -55,6 +55,25 @@ if __name__ == '__main__':
         r8=Review(recommend=True, rev_text=fake.paragraph(nb_sentences=2), user=u1, game=g4)
 
         db.session.add_all([r1,r2,r3,r4,r5,r6,r7,r8])
+        db.session.commit()
+
+        print("Creating ratings")
+        ug_ratings = [randint(1, 5) for _ in range(8)]
+
+        user_games = [
+            (u1, g1),
+            (u2, g1),
+            (u2, g3),
+            (u3, g2),
+            (u4, g4),
+            (u5, g4),
+            (u4, g3),
+            (u1, g4),
+        ]
+
+        for (user, game), rating in zip(user_games, ug_ratings):
+            db.session.execute(user_game_association.insert().values(user_id=user.id, game_id=game.id, rating=rating))
+
         db.session.commit()
 
         print("Complete")
