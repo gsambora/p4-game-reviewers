@@ -178,14 +178,6 @@ class NewGame(Resource):
         db.session.commit()
 
         return new_game.to_dict(), 200
-    
-class GamesForUser(Resource):
-    def get(self, id):
-        user = User.query.filter(User.id == id).first()
-        games = [game.to_dict() for game in user.games]
-
-        print(games)
-
 
 
 api.add_resource(Reviews, '/reviews', endpoint='reviews')
@@ -205,8 +197,6 @@ api.add_resource(Logout, '/logout', endpoint="logout")
 
 api.add_resource(CurrentReviews, '/currentreviews', endpoint="currentreviews")
 api.add_resource(NewGame, '/newgame', endpoint="newgame")
-
-api.add_resource(GamesForUser, '/games_for_user/<int:id>', endpoint="games_for_user")
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)  

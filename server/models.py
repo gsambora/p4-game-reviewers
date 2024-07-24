@@ -14,8 +14,6 @@ class User(db.Model):
 
     reviews = db.relationship("Review", back_populates = 'user')
 
-    ratings = db.relationship("Rating", back_populates='user', cascade='all, delete-orphan')
-
     def to_dict(self):
         return {col.name: getattr(self, col.name) for col in self.__table__.columns}
 
@@ -29,8 +27,6 @@ class Game(db.Model):
     genre = db.Column(db.String)
 
     reviews = db.relationship("Review", back_populates = 'game')
-
-    ratings = db.relationship("Rating", back_populates='game', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {col.name: getattr(self, col.name) for col in self.__table__.columns}
@@ -52,21 +48,3 @@ class Review(db.Model):
     def to_dict(self):
         return {col.name: getattr(self, col.name) for col in self.__table__.columns}
 
-class Rating(db.Model):
-    __tablename__='ratings'
-
-    id=db.Column(db.Integer, primary_key=True)
-    rating=db.Column(db.Integer, nullable=False)
-
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
-
-    user = db.relationship('User', back_populates='ratings')
-    game = db.relationship('Game', back_populates='ratings')
-
-    __table_args__ = (
-        db.CheckConstraint('rating >= 1 AND rating <= 5', name='check_rating'),
-    )
-    
-    def to_dict(self):
-        return {col.name: getattr(self, col.name) for col in self.__table__.columns}
